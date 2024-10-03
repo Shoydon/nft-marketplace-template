@@ -68,7 +68,7 @@ function App() {
   return (
     <BrowserRouter>
     <ToastContainer/>
-    <div className="App min-h-screen">
+    <div className="App h-screen">
       <div className='gradient-bg-welcome h-screen w-screen'>
       <Nav account={account}/>
       <Routes>
