@@ -17,51 +17,54 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [account, setAccount] = useState("");
   const [marketplace, setMarketplace]= useState({});
-  const [nftitem, setNFTitem] = useState({})
+  const [nftitem, setNFTitem] = useState(null)
 
 
 
-  useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+  // useEffect(() => {
+  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-    const loadProvider = async () => {
-      if (provider) {
-        window.ethereum.on("chainChanged", () => {
-          window.location.reload()
-        });
+  //   const loadProvider = async () => {
+  //     if (provider) {
+  //       window.ethereum.on("chainChanged", () => {
+  //         window.location.reload()
+  //       });
 
-        window.ethereum.on("accountsChanged", () => {
-          window.location.reload();
-        });
+  //       window.ethereum.on("accountsChanged", () => {
+  //         window.location.reload();
+  //       });
         
-        await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
-        setAccount(address);
-        setLoading(false)
-        let marketplaceAddress = "0x5B020e60691BaA4A388D153d4Db204f5ab028853";
+  //       await provider.send("eth_requestAccounts", []);
+  //       const signer = provider.getSigner();
+  //       const address = await signer.getAddress();
+  //       setAccount(address);
+  //       setLoading(false)
+  //       let marketplaceAddress = "0x5B020e60691BaA4A388D153d4Db204f5ab028853";
        
 
-        const marketplacecontract = new ethers.Contract(
-          marketplaceAddress,
-          marketplace_abi,
-          signer
-        );
+  //       const marketplacecontract = new ethers.Contract(
+  //         marketplaceAddress,
+  //         marketplace_abi,
+  //         signer
+  //       );
 
        
 
-        //console.log(contract);
-        setMarketplace(marketplacecontract);
+  //       //console.log(contract);
+  //       setMarketplace(marketplacecontract);
      
        
-      } else {
-        console.error("Metamask is not installed");
-      }
-    };
+  //     } else {
+  //       console.error("Metamask is not installed");
+  //     }
+  //   };
 
-    provider && loadProvider();
-  }, []);
+  //   provider && loadProvider();
+  // }, []);
 
+  useEffect(() => {
+    console.log(nftitem);
+  }, [nftitem])
 
 
 
@@ -75,7 +78,7 @@ function App() {
         <Route path="/" element={<Home/>}></Route>
         <Route path="/all-nft" element={<NFTs marketplace={marketplace} setNFTitem={setNFTitem} />}></Route>
         <Route path="/create" element={<Create marketplace={marketplace}  />}></Route>
-        <Route path="/info" element={<Info nftitem={nftitem} />}></Route>
+        <Route path="/info" element={<Info nftitem={nftitem} setNFTitem={setNFTitem}/>}></Route>
       </Routes>
       </div>
     </div>
